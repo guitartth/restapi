@@ -4,7 +4,8 @@
 // Date: 5/1/2021
 // File: database.php
 
-
+// Heroku Database
+/*
 class Database
 {
     
@@ -20,8 +21,6 @@ class Database
 
     public static function getDB()
     {
-        /*
-        // Heroku Database
         if (!isset(self::$db)) {
             try {
                 self::$db = new PDO(
@@ -36,20 +35,35 @@ class Database
             }
         }
         return self::$db;
-        */
+    }
+}
+*/
 
-        // Local Database
-        $dsn1 = 'mysql:host=localhost;dbname=restapi';
-        $username1 = 'root';
-    
+// Local Database
+class Database
+{
+    // Local Database
+    private static $dsn2 = 'mysql:host=localhost;dbname=restapi';
+    private static $username2 = 'root';
+    private static $db;
+
+    private function __construct()
+    {
+        //empty on purpose
+    }
+
+    public static function getDB()
+    {
         try {
-            self::$db = new PDO($dsn1, $username1);
+            self::$db = new PDO($dsn2, $username2);
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
             include('./view/error.php');
             exit();
         }
+        return self::$db;
     }
+    
 }
 
 ?>
