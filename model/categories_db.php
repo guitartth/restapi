@@ -5,4 +5,49 @@
 // File: categories_db.php
 
 
+class Categories
+{
+
+    public static function get_categories()
+        {
+            $db = Database::getDB();
+            $query = 'SELECT * FROM categories ORDER BY category_id';
+            $statement = $db->prepare($query);
+            $statement->execute();
+            $categories = $statement->fetchAll();
+            $statement->closeCursor();
+            return $categories;
+        }
+
+        public static function get_category_name($category_id)
+        {
+            if(!$category_id)
+            {
+                return "All Categories";
+            } 
+            $db = Database::getDB();
+            $query = 'SELECT * FROM categories
+                      WHERE category_id = :category_id';
+            $statement = $db->prepare($query);
+            $statement->bindValue(':category_id', $category_id);
+            $statement->execute();
+            $category = $statement->fetchAll();
+            $statement->closeCursor();
+            return $category;
+        }
+
+        public static function add_cateogry($category_name)
+        {
+            $db = Database::GetDB();
+            $query = 'INSERT INTO categories
+                        (Category)
+                      VALUES
+                        (:category_name)';
+            $statement = $db->prepare($query);
+            $statement->bindValue(':category_name', $category_name);
+            $statement->execute();
+            $statement->closeCursor();
+        }
+}
+
 ?>

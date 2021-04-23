@@ -43,8 +43,6 @@ class Database
 class Database
 {
     // Local Database
-    private static $dsn2 = 'mysql:host=localhost;dbname=restapi';
-    private static $username2 = 'root';
     private static $db;
 
     private function __construct()
@@ -55,7 +53,7 @@ class Database
     public static function getDB()
     {
         try {
-            self::$db = new PDO($dsn2, $username2);
+            self::$db = new PDO('mysql:host=localhost;dbname=restapi', 'root');
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
             include('./view/error.php');
