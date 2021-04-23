@@ -82,6 +82,19 @@ class Quotes
             $statement->closeCursor();
             return $quotes;
         }
+
+        public static function get_quotes_by_all($author_id, $category_id)
+        {
+            $db = Database::getDB();
+            $query = '';
+            $statement = $db->prepare($query);
+            $statement->bindValue(':author_id', $author_id);
+            $statement->bindValue(':category_id', $category_id);
+            $statement->execute();
+            $quotes = $statement->fetchAll();
+            $statement->closeCursor();
+            return $quotes;
+        }
 }
 
 ?>

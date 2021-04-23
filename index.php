@@ -39,6 +39,9 @@ if(!$quote_id)
     $quote_id = filter_input(INPUT_GET, 'quote_id', FILTER_VALIDATE_INT);
 }
 
+$quote_name = filter_input(INPUT_POST, 'quote_name', FILTER_SANITIZE_STRING);
+
+
 // Start Cookie Session
 $lifetime = 60 * 60 * 24 * 14; // cookie will last 2 weeks
 session_set_cookie_params($lifetime, '/');
@@ -51,7 +54,11 @@ switch($action)
     case "filter_quotes":
         if($author_id && $category_id)
         {
-            // write function to bind both values and collect quotes
+            $quotes = Quotes::get_quotes_by_all($author_id, $category_id);
+            $authors = Authors::get_authors();
+            $categories = Categories::get_categories();
+            include('view/list_quotes.php');
+            break;
         }
         else if($author_id)
         {
