@@ -40,24 +40,46 @@ class Quotes
         {
             $db = Database::GetDB();
             $query = 'INSERT INTO quotes
-                        (Quotes)
+                        (quote, author_id, category_id)
                       VALUES
-                        (:quote)';
+                        (:quote_name, :author_id, :category_id)';
             $statement = $db->prepare($query);
-            $statement->bindValue(':quote', $quote_name);
+            $statement->bindValue(':quote_name', $quote_name);
+            $statement->bindValue(':author_id', $author_id);
+            $statement->bindValue(':category_id', $category_id);
             $statement->execute();
             $statement->closeCursor();
         }
 
         public static function get_quotes_by_category($category_id)
         {
-
+            $db = Database::getDB();
+            $query = 'SELECT q.quote_id, q.quote, c.category, a.author 
+                      FROM quotes q
+                      LEFT JOIN authors a ON q.author_id = a.author_id
+                      LEFT JOIN categories c ON q.category_id = c.category_id
+                      WHERE q.category_id = :category_id';
+            $statement = $db->prepare($query);
+            $statement->bindValue(':category_id', $category_id);
+            $statement->execute();
+            $quotes = $statement->fetchAll();
+            $statement->closeCursor();
             return $quotes;
         }
 
         public static function get_quotes_by_author($author_id)
         {
-            
+            $db = Database::getDB();
+            $query = 'SELECT q.quote_id, q.quote, c.category, a.author 
+                      FROM quotes q
+                      LEFT JOIN authors a ON q.author_id = a.author_id
+                      LEFT JOIN categories c ON q.category_id = c.category_id
+                      WHERE q.author_id = :author_id';
+            $statement = $db->prepare($query);
+            $statement->bindValue(':author_id', $author_id);
+            $statement->execute();
+            $quotes = $statement->fetchAll();
+            $statement->closeCursor();
             return $quotes;
         }
 }
