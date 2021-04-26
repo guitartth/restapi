@@ -8,7 +8,7 @@
 require('./model/database.php');
 require('./model/authors_db.php');
 require('./model/categories_db.php');
-require('./quotes_db.php');
+require('./model/quotes_db.php');
 
 // Variables
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
@@ -21,16 +21,16 @@ if(!$action)
     }
 }
 
-$category_id = filter_input(INPUT_POST, 'category_id', FILTER_VALIDATE_INT);
-if(!$category_id)
+$categoryId = filter_input(INPUT_POST, 'categoryId', FILTER_VALIDATE_INT);
+if(!$categoryId)
 {
-    $category_id = filter_input(INPUT_GET, 'category_id', FILTER_VALIDATE_INT);
+    $categoryId = filter_input(INPUT_GET, 'categoryId', FILTER_VALIDATE_INT);
 }
 
-$author_id = filter_input(INPUT_POST, 'author_id', FILTER_VALIDATE_INT);
-if(!$author_id)
+$authorId = filter_input(INPUT_POST, 'authorId', FILTER_VALIDATE_INT);
+if(!$authorId)
 {
-    $author_id = filter_input(INPUT_GET, 'author_id', FILTER_VALIDATE_INT);
+    $authorId = filter_input(INPUT_GET, 'authorId', FILTER_VALIDATE_INT);
 }
 
 $quote_id = filter_input(INPUT_POST, 'quote_id', FILTER_VALIDATE_INT);
@@ -102,4 +102,3 @@ switch($action)
 ?>
 
 
-<h1>Hello World!</h1>

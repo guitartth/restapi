@@ -11,7 +11,7 @@ class Categories
     public static function get_categories()
         {
             $db = Database::getDB();
-            $query = 'SELECT * FROM categories ORDER BY category_id';
+            $query = 'SELECT * FROM categories ORDER BY categoryId';
             $statement = $db->prepare($query);
             $statement->execute();
             $categories = $statement->fetchAll();
@@ -27,7 +27,7 @@ class Categories
             } 
             $db = Database::getDB();
             $query = 'SELECT * FROM categories
-                      WHERE category_id = :category_id';
+                      WHERE categoryId = :category_id';
             $statement = $db->prepare($query);
             $statement->bindValue(':category_id', $category_id);
             $statement->execute();
@@ -40,7 +40,7 @@ class Categories
         {
             $db = Database::GetDB();
             $query = 'INSERT INTO categories
-                        (Category)
+                        (category)
                       VALUES
                         (:category_name)';
             $statement = $db->prepare($query);

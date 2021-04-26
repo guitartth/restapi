@@ -11,7 +11,7 @@ class Authors
         public static function get_authors()
         {
             $db = Database::getDB();
-            $query = 'SELECT * FROM authors ORDER BY author_id';
+            $query = 'SELECT * FROM authors ORDER BY authorId';
             $statement = $db->prepare($query);
             $statement->execute();
             $authors = $statement->fetchAll();
@@ -27,7 +27,7 @@ class Authors
             } 
             $db = Database::getDB();
             $query = 'SELECT * FROM authors
-                      WHERE author_id = :author_id';
+                      WHERE authorId = :author_id';
             $statement = $db->prepare($query);
             $statement->bindValue(':author_id', $author_id);
             $statement->execute();
@@ -40,7 +40,7 @@ class Authors
         {
             $db = Database::GetDB();
             $query = 'INSERT INTO authors
-                        (Author)
+                        (author)
                       VALUES
                         (:author_name)';
             $statement = $db->prepare($query);

@@ -11,7 +11,14 @@ class Quotes
     public static function get_quotes()
         {
             $db = Database::getDB();
-            $query = 'SELECT * FROM quotes ORDER BY quote_id';
+            
+            $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
+                      c.category, a.author
+                      FROM quotes q 
+                      INNER JOIN categories c
+                      ON q.categoryId = c.categoryId
+                      INNER JOIN authors a
+                      ON q.authorId = a.authorId';
             $statement = $db->prepare($query);
             $statement->execute();
             $quotes = $statement->fetchAll();
@@ -27,7 +34,7 @@ class Quotes
             } 
             $db = Database::getDB();
             $query = 'SELECT * FROM quotes
-                      WHERE quote_id = :quote_id';
+                      WHERE id = :quote_id';
             $statement = $db->prepare($query);
             $statement->bindValue(':quote_id', $quote_id);
             $statement->execute();
@@ -40,7 +47,7 @@ class Quotes
         {
             $db = Database::GetDB();
             $query = 'INSERT INTO quotes
-                        (quote, author_id, category_id)
+                        (quote, authorId, categoryId)
                       VALUES
                         (:quote_name, :author_id, :category_id)';
             $statement = $db->prepare($query);
@@ -54,11 +61,11 @@ class Quotes
         public static function get_quotes_by_category($category_id)
         {
             $db = Database::getDB();
-            $query = 'SELECT q.quote_id, q.quote, c.category, a.author 
+            $query = 'SELECT q.id, q.quote, c.category, a.author 
                       FROM quotes q
-                      LEFT JOIN authors a ON q.author_id = a.author_id
-                      LEFT JOIN categories c ON q.category_id = c.category_id
-                      WHERE q.category_id = :category_id';
+                      LEFT JOIN authors a ON q.authorId = a.authorId
+                      LEFT JOIN categories c ON q.categoryId = c.categoryId
+                      WHERE q.categoryId = :category_id';
             $statement = $db->prepare($query);
             $statement->bindValue(':category_id', $category_id);
             $statement->execute();
@@ -70,11 +77,11 @@ class Quotes
         public static function get_quotes_by_author($author_id)
         {
             $db = Database::getDB();
-            $query = 'SELECT q.quote_id, q.quote, c.category, a.author 
+            $query = 'SELECT q.id, q.quote, c.category, a.author 
                       FROM quotes q
-                      LEFT JOIN authors a ON q.author_id = a.author_id
-                      LEFT JOIN categories c ON q.category_id = c.category_id
-                      WHERE q.author_id = :author_id';
+                      LEFT JOIN authors a ON q.authorId = a.authorId
+                      LEFT JOIN categories c ON q.categoryId = c.categoryId
+                      WHERE q.authorId = :author_id';
             $statement = $db->prepare($query);
             $statement->bindValue(':author_id', $author_id);
             $statement->execute();

@@ -6,6 +6,7 @@
 ?>
 
 <footer>
+    <hr>
     <p class="copyright">
         &copy; <?php echo date("Y"); ?> Craig Freeburg FHSU 2021
     </p>

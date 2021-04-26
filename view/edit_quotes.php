@@ -7,7 +7,7 @@
 
 
 <?php // Site Header
-include('view/header.php'); ?>
+include('header.php'); ?>
 
 <section id="add_quote">
     <form action="." method="post" id="add_form">
@@ -16,10 +16,10 @@ include('view/header.php'); ?>
         <select name="author_id">
             <option value="0">Select Author</option>
             <?php foreach ($authors as $author) : ?>
-            <?php if ($author_id == $author['author_id']) { ?>
-                <option value="<?= $author['author_id'] ?>" selected>
+            <?php if ($author_id == $author['id']) { ?>
+                <option value="<?= $author['id'] ?>" selected>
                     <?php } else { ?>
-                <option value="<?= $author['author_id'] ?>">
+                <option value="<?= $author['id'] ?>">
                     <?php } ?>
                     <?= $author['author'] ?>
                 </option> 
@@ -29,16 +29,21 @@ include('view/header.php'); ?>
         <select name="category_id">
         <option value="0">Select Category</option>
         <?php foreach ($categories as $category) : ?>
-        <?php if ($category_id == $category['category_id']) { ?>
-            <option value="<?= $category['category_id'] ?>" selected>
+        <?php if ($category_id == $category['id']) { ?>
+            <option value="<?= $category['id'] ?>" selected>
                 <?php } else { ?>
-            <option value="<?= $category['category_id'] ?>">
+            <option value="<?= $category['id'] ?>">
                 <?php } ?>
                 <?= $category['category'] ?>
             </option> 
             <?php endforeach; ?>
         </select>
         </div>
+        <br>
+
+        <label>Quote:</label>
+        <textarea type="text" name="quote" maxLength="200" rows="4" cols="50" required>
+        </textarea>
 
         <div class="add_quote_submit_button">
             <button class="add_button">Add</button>
@@ -47,6 +52,12 @@ include('view/header.php'); ?>
 </section>
 
 <?php // Link to Index and Site Footer ?>
-<a href=".?action=default" id="back_home_link">Back Home</a>
-<?php include('view/footer.php');
+<div id="footer_buttons">
+    <form action="." method="post">
+        <input type="hidden" name="action" value="default">
+        <button class="footer-button">Back Home</button>
+    </form>
+</div>
+
+<?php include('footer.php'); ?>
 
