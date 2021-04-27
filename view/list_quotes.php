@@ -10,13 +10,13 @@ include('view/header.php'); ?>
 
 <!--Filter Quotes Selection-->
 <section id="filter_quote">
-    <form action="." method="post" id="add_form">
-        <input type="hidden" name="action" value="filter_quotes">
+    <form action="." method="get" id="add_form">
+        <input type="hidden" name="action" value="search_quotes">
         <div id="filter_quote_input">
-            <select name="author_id">
+            <select name="authorId">
                 <option value="0">Select Author</option>
                 <?php foreach ($authors as $author) : ?>
-                    <?php if ($author_id == $author['authorId']) { ?>
+                    <?php if ($authorId == $author['authorId']) { ?>
                         <option value="<?= $author['authorId'] ?>" selected>
                         <?php } else { ?>
                         <option value="<?= $author['authorId'] ?>">
@@ -26,10 +26,10 @@ include('view/header.php'); ?>
                     <?php endforeach; ?>
             </select>
 
-            <select name="category_id">
+            <select name="categoryId">
                 <option value="0">Select Category</option>
                 <?php foreach ($categories as $category) : ?>
-                    <?php if ($category_id == $category['categoryId']) { ?>
+                    <?php if ($categoryId == $category['categoryId']) { ?>
                         <option value="<?= $category['categoryId'] ?>" selected>
                         <?php } else { ?>
                         <option value="<?= $category['categoryId'] ?>">

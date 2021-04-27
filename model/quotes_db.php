@@ -11,14 +11,14 @@ class Quotes
     public static function get_quotes()
         {
             $db = Database::getDB();
-            
             $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
                       c.category, a.author
                       FROM quotes q 
                       INNER JOIN categories c
                       ON q.categoryId = c.categoryId
                       INNER JOIN authors a
-                      ON q.authorId = a.authorId';
+                      ON q.authorId = a.authorId
+                      ORDER BY q.id';
             $statement = $db->prepare($query);
             $statement->execute();
             $quotes = $statement->fetchAll();
@@ -93,7 +93,11 @@ class Quotes
         public static function get_quotes_by_all($author_id, $category_id)
         {
             $db = Database::getDB();
-            $query = '';
+            $query = 'SELECT q.id, q.quote, c.category, a.author
+                      FROM quotes q
+                      LEFT JOIN authors a ON q.authorId = a.authorId
+                      LEFT JOIN categories c ON q.categoryId = c.categoryId
+                      WHERE q.authorId = :author_id && q.categoryId = :category_id';
             $statement = $db->prepare($query);
             $statement->bindValue(':author_id', $author_id);
             $statement->bindValue(':category_id', $category_id);

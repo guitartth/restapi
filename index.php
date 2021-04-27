@@ -40,6 +40,10 @@ if(!$quote_id)
 }
 
 $quote_name = filter_input(INPUT_POST, 'quote_name', FILTER_SANITIZE_STRING);
+if(!$quote_name)
+{
+    $quote_name = filter_input(INPUT_GET, 'quote_name', FILTER_SANITIZE_STRING);
+}
 
 
 // Start Cookie Session
@@ -51,26 +55,26 @@ session_start();
 // Action Switch
 switch($action)
 {
-    case "filter_quotes":
-        if($author_id && $category_id)
+    case "search_quotes":
+        if($authorId && $categoryId)
         {
-            $quotes = Quotes::get_quotes_by_all($author_id, $category_id);
+            $quotes = Quotes::get_quotes_by_all($authorId, $categoryId);
             $authors = Authors::get_authors();
             $categories = Categories::get_categories();
             include('view/list_quotes.php');
             break;
         }
-        else if($author_id)
+        else if($authorId)
         {
-            $quotes = Quotes::get_quotes_by_author($author_id);
+            $quotes = Quotes::get_quotes_by_author($authorId);
             $authors = Authors::get_authors();
             $categories = Categories::get_categories();
             include('view/list_quotes.php');
             break;
         }
-        else if($category_id)
+        else if($categoryId)
         {
-            $quotes = Quotes::get_quotes_by_category($category_id);
+            $quotes = Quotes::get_quotes_by_category($categoryId);
             $authors = Authors::get_authors();
             $categories = Categories::get_categories();
             include('view/list_quotes.php');
@@ -89,7 +93,7 @@ switch($action)
         include('view/edit_quotes.php');
         break;
     case "add_quote":
-        Quotes::add_quote($quote_name, $author_id, $category_id);
+        Quotes::add_quote($quote_name, $authorId, $categoryId);
         header("Location: .?action=default");
         break;
     default:
