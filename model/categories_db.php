@@ -5,6 +5,42 @@
 // File: categories_db.php
 
 
+class Categories 
+{
+    // DB Connection
+    private $conn;
+    private $table = 'categories';
+
+    // Category Properties
+    public $categoryId;
+    public $category;
+
+    // Constructor with DB
+    public function __construct($db)
+    {
+        $this->conn = $db;
+    }
+
+    // Get Categories
+    public function read()
+    {
+        // Create Query
+        $query = 'SELECT categoryId, category
+                  FROM categories
+                  ORDER BY categoryId';
+
+        // Prepare Query 
+        $stmt = $this->conn->prepare($query);
+
+        // Execute Query
+        $stmt->execute();
+
+        return $stmt;
+    }
+}
+
+// Original Working Code
+/*
 class Categories
 {
 
@@ -49,5 +85,5 @@ class Categories
             $statement->closeCursor();
         }
 }
-
+*/
 ?>

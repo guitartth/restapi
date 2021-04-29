@@ -42,14 +42,32 @@ class Database
 // Local Database
 class Database
 {
-    // Local Database
-    private static $db;
+    // DB Params
+    private $host = 'localhost';
+    private $db_name = 'restapi';
+    private $username = 'root';
+    //private $password = '123456';
+    private $conn;
 
-    private function __construct()
+    public function connect()
     {
-        //empty on purpose
+        $this->conn = null;
+
+        try
+        {
+            $this->conn = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db_name,
+                $this->username);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch(PDOException $e)
+        {
+            echo 'Connection Error: ' . $e->getMessage();
+        }
+
+        return $this->conn;
     }
 
+    /*
     public static function getDB()
     {
         try {
@@ -61,6 +79,7 @@ class Database
         }
         return self::$db;
     }
+    */
     
 }
 
