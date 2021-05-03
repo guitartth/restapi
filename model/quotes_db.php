@@ -108,7 +108,7 @@ class Quotes
         }
         
         // Print Error if needed
-        printf("Error: %s.\n", $stmt->error);
+        json_encode("Error: %s.\n", $stmt->error);
         return false;
     }
 
@@ -145,7 +145,7 @@ class Quotes
         }
         
         // Print Error if needed
-        printf("Error: %s.\n", $stmt->error);
+        json_encode("Error: %s.\n", $stmt->error);
         return false;
     }
 
@@ -171,9 +171,87 @@ class Quotes
         }
         
         // Print Error if needed
-        printf("Error: %s.\n", $stmt->error);
+        json_encode("Error: %s.\n", $stmt->error);
         return false;
     }
+
+    // Get Quotes by Author Id
+    public function get_author_quotes()
+    {
+        // Create Query
+        $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
+                      c.category, a.author
+                      FROM quotes q 
+                      INNER JOIN categories c
+                      ON q.categoryId = c.categoryId
+                      INNER JOIN authors a
+                      ON q.authorId = a.authorId
+                      WHERE q.authorId = ?';
+
+        // Prepare Query
+        $stmt = $this->conn->prepare($query);
+
+        // Bind Id
+        $stmt->bindParam(1, $this->authorId);
+
+        // Execute Query
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    // Get Quotes by Category Id
+    public function get_category_quotes()
+    {
+        // Create Query
+        $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
+                      c.category, a.author
+                      FROM quotes q 
+                      INNER JOIN categories c
+                      ON q.categoryId = c.categoryId
+                      INNER JOIN authors a
+                      ON q.authorId = a.authorId
+                      WHERE q.categoryId = ?';
+
+        // Prepare Query
+        $stmt = $this->conn->prepare($query);
+
+        // Bind Id
+        $stmt->bindParam(1, $this->categoryId);
+
+        // Execute Query
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    // Get Quotes by Category Id
+    public function get_quotes_by_all()
+    {
+        // Create Query
+        $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
+                      c.category, a.author
+                      FROM quotes q 
+                      INNER JOIN categories c
+                      ON q.categoryId = c.categoryId
+                      INNER JOIN authors a
+                      ON q.authorId = a.authorId
+                      WHERE q.categoryId = ?
+                      AND q.authorId = ?';
+
+        // Prepare Query
+        $stmt = $this->conn->prepare($query);
+
+        // Bind Id
+        $stmt->bindParam(1, $this->categoryId);
+        $stmt->bindParam(2, $this->authorId);
+
+        // Execute Query
+        $stmt->execute();
+
+        return $stmt;
+    }
+    
 }
 
 
@@ -189,6 +267,90 @@ class Quotes
 /*
 class Quotes 
 {
+
+    public function get_quotes_by_category($categoryId)
+    {
+        // Create Query
+        $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
+                      c.category, a.author
+                      FROM quotes q 
+                      INNER JOIN categories c
+                      ON q.categoryId = c.categoryId
+                      INNER JOIN authors a
+                      ON q.authorId = a.authorId
+                      WHERE categoryId = :categoryId';
+        
+        // Prepare Query
+        $stmt = $this->conn->prepare($query);
+
+        // Clean Data
+        $this->categoryId = htmlspecialchars(strip_tags($this->categoryId));
+
+        // Bind Data
+        $stmt->bindParam(':categoryId', $categoryId);
+
+        // Execute Query
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function get_quotes_by_author($authorId)
+    {
+        // Create Query
+        $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
+                      c.category, a.author
+                      FROM quotes q 
+                      INNER JOIN categories c
+                      ON q.categoryId = c.categoryId
+                      INNER JOIN authors a
+                      ON q.authorId = a.authorId
+                      WHERE authorId = :authorId';
+        
+        // Prepare Query
+        $stmt = $this->conn->prepare($query);
+
+        // Clean Data
+        $this->authorId = htmlspecialchars(strip_tags($this->authorId));
+
+        // Bind Data
+        $stmt->bindParam(':authorId', $authorId);
+
+        // Execute Query
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function get_quotes_by_all($authorId, $categoryId)
+    {
+        // Create Query
+        $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
+                      c.category, a.author
+                      FROM quotes q 
+                      INNER JOIN categories c
+                      ON q.categoryId = c.categoryId
+                      INNER JOIN authors a
+                      ON q.authorId = a.authorId
+                      WHERE authorId = :authorId
+                      AND categoryId = :categoryId';
+        
+        // Prepare Query
+        $stmt = $this->conn->prepare($query);
+
+        // Clean Data
+        $this->authorId = htmlspecialchars(strip_tags($this->authorId));
+        $this->categoryId = htmlspecialchars(strip_tags($this->categoryId));
+
+        // Bind Data
+        $stmt->bindParam(':authorId', $authorId);
+        $stmt->bindParam(':categoryId', $categoryId);
+
+        // Execute Query
+        $stmt->execute();
+
+        return $stmt;
+    }
 
     public static function get_quotes()
         {

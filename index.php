@@ -51,6 +51,16 @@ $lifetime = 60 * 60 * 24 * 14; // cookie will last 2 weeks
 session_set_cookie_params($lifetime, '/');
 session_start();
 
+// Connect to DB
+$database = new Database();
+$db = $database->connect();
+
+// Instantiate Objects
+$quotes = new Quotes($db);
+$authors = new Authors($db);
+$categories = new Categories($db);
+
+
 
 // Action Switch
 switch($action)
@@ -59,24 +69,24 @@ switch($action)
         if($authorId && $categoryId)
         {
             $quotes = Quotes::get_quotes_by_all($authorId, $categoryId);
-            $authors = Authors::get_authors();
-            $categories = Categories::get_categories();
+            $authors = $authors->read();
+            $categories = $categories->read();
             include('view/list_quotes.php');
             break;
         }
         else if($authorId)
         {
             $quotes = Quotes::get_quotes_by_author($authorId);
-            $authors = Authors::get_authors();
-            $categories = Categories::get_categories();
+            $authors = $authors->read();
+            $categories = $categories->read();
             include('view/list_quotes.php');
             break;
         }
         else if($categoryId)
         {
-            $quotes = Quotes::get_quotes_by_category($categoryId);
-            $authors = Authors::get_authors();
-            $categories = Categories::get_categories();
+            $quotes = $quotes->get_quotes_by_category($categoryId);
+            $authors = $authors->read();
+            $categories = $categories->read();
             include('view/list_quotes.php');
             break;
         }
@@ -87,9 +97,9 @@ switch($action)
             break;
         }
     case "edit_quotes":
-        $quotes = Quotes::get_quotes();
-        $authors = Authors::get_authors();
-        $categories = Categories::get_categories();
+        $quotes = $quotes->read();
+        $authors = $authors->read();
+        $categories = $categories->read();
         include('view/edit_quotes.php');
         break;
     case "add_quote":
@@ -97,9 +107,9 @@ switch($action)
         header("Location: .?action=default");
         break;
     default:
-        $quotes = Quotes::get_quotes();
-        $authors = Authors::get_authors();
-        $categories = Categories::get_categories();
+        $quotes = $quotes->read();
+        $authors = $authors->read();
+        $categories = $categories->read();
         include('view/list_quotes.php');
         break;
 }
