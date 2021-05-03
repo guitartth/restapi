@@ -10,6 +10,7 @@ class Quotes
     private $conn;
     private $table = 'quotes';
 
+
     // Quote Properties
     public $id;
     public $categoryId;
@@ -17,6 +18,7 @@ class Quotes
     public $quote;
     public $author;
     public $category;
+    public $limit;
 
     // Constructor with DB
     public function __construct($db)
@@ -24,25 +26,52 @@ class Quotes
         $this->conn = $db;
     }
 
+    
+
     // Get Quotes
     public function read()
     {
+            // Create Query
+            $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
+                        c.category, a.author
+                        FROM quotes q 
+                        INNER JOIN categories c
+                        ON q.categoryId = c.categoryId
+                        INNER JOIN authors a
+                        ON q.authorId = a.authorId
+                        ORDER BY q.id';
+
+            // Prepare Query
+            $stmt = $this->conn->prepare($query);
+
+            // Execute Query
+            $stmt->execute();
+
+            return $stmt;       
+    }
+
+    // Get Limited Quantity of Quotes
+    public function read_limit()
+    {
         // Create Query
         $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
-                      c.category, a.author
-                      FROM quotes q 
-                      INNER JOIN categories c
-                      ON q.categoryId = c.categoryId
-                      INNER JOIN authors a
-                      ON q.authorId = a.authorId
-                      ORDER BY q.id';
-        
+            c.category, a.author
+            FROM quotes q 
+            INNER JOIN categories c
+            ON q.categoryId = c.categoryId
+            INNER JOIN authors a
+            ON q.authorId = a.authorId
+            LIMIT 0,?';
+
         // Prepare Query
         $stmt = $this->conn->prepare($query);
 
+        // Bind Limit
+        $stmt->bindValue(1, $this->limit, PDO::PARAM_INT);
+
         // Execute Query
         $stmt->execute();
-
+    
         return $stmt;
     }
 

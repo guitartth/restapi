@@ -23,9 +23,12 @@
 
     // Get categoryId
     $categoryId = filter_input(INPUT_GET, 'categoryId', FILTER_VALIDATE_INT);
+
+    // Get Limit
+    $limit = filter_input(INPUT_GET, 'limit', FILTER_VALIDATE_INT);
     
 
-    // Quote Query
+    // API Request Supplies Both Category and Author Id's
     if($authorId && $categoryId)
     {
         $quote->authorId = $authorId;
@@ -69,6 +72,7 @@
             );
         }
     }
+    // API Request Supplies Author Id
     else if($authorId)
     {
         $quote->authorId = $authorId;
@@ -111,6 +115,7 @@
             );
         }
     }
+    // API Request Supplies Category Id
     else if($categoryId)
     {
         $quote->categoryId = $categoryId;
@@ -153,45 +158,92 @@
             );
         }
     }
-    else
-    {
-        // call function to return all quotes
-        $result = $quote->read();
+    // API Request with No Author or Category Restrictions
+    else 
+    {   
+        // API Request with Limited Quotes Returned
+        if($limit)
+        {   
+            $quote->limit = $limit;
 
-        // Get Row Count
-        $count = $result->rowCount();
-    
-        // Check if any Quotes
-        if($count > 0)
-        {
-            // Quote Array
-            $quote_arr = array();
-            $quote_arr['data'] = array();
+            // call function to return all quotes
+            $result = $quote->read_limit();
 
-            while($row = $result->fetch(PDO::FETCH_ASSOC))
+            // Get Row Count
+            $count = $result->rowCount();
+
+            // Check if any Quotes
+            if ($count > 0) 
             {
-                extract($row);
-                $quote_item = array(
-                    'id' => $id,
-                    'quote' => $quote,
-                    'author' => $author,
-                    'category' => $category,
+
+                // Quote Array
+                $quote_arr = array();
+                $quote_arr['data'] = array();
+
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) 
+                {
+                    extract($row);
+                    $quote_item = array(
+                        'id' => $id,
+                        'quote' => $quote,
+                        'author' => $author,
+                        'category' => $category,
                 );
 
                 // Push to "data"
                 array_push($quote_arr['data'], $quote_item);
-            }
+                }
 
             // Turn to JSON
             echo json_encode($quote_arr);
+            } 
+            else 
+            {
+                // No Quotes
+                echo json_encode(
+                    array('message' => 'No Quotes Found')
+                );
+            }   
         }
+        // API Request Returns All Quotes
         else
         {
-            // No Quotes
-            echo json_encode(
-                array('message' => 'No Quotes Found')
-            );
-        }
+            // call function to return all quotes
+            $result = $quote->read();
+
+            // Get Row Count
+            $count = $result->rowCount();
+
+            // Check if any Quotes
+            if ($count > 0) {
+                // Quote Array
+                $quote_arr = array();
+                $quote_arr['data'] = array();
+
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    extract($row);
+                    $quote_item = array(
+                        'id' => $id,
+                        'quote' => $quote,
+                        'author' => $author,
+                        'category' => $category,
+                    );
+
+                    // Push to "data"
+                    array_push($quote_arr['data'], $quote_item);
+                }
+
+                // Turn to JSON
+                echo json_encode($quote_arr);
+            } 
+            else 
+            {
+                // No Quotes
+                echo json_encode(
+                    array('message' => 'No Quotes Found')
+                );
+            }   
+        } 
     }
     
     
