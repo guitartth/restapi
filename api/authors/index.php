@@ -24,7 +24,6 @@
     {
         // Author Array
         $author_arr = array();
-        $author_arr['data'] = array();
 
         while($row = $result->fetch(PDO::FETCH_ASSOC))
         {
@@ -34,8 +33,8 @@
                 'author' => $author
             );
 
-            // Push to "data"
-            array_push($author_arr['data'], $author_item);
+            // Push to array
+            array_push($author_arr, $author_item);
         }
 
         // Turn to JSON
