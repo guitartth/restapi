@@ -3,7 +3,6 @@
 // Author: Craig Freeburg
 // Date: 5/1/2021
 // File: main.css
-
 */
 
 
@@ -11,4 +10,5 @@ body {
     background: url("../img/blackbrick.jpg");
     background-color: black;
     font-family: 'Finger Paint', cursive;
+    font-size: 66px;
 }
