@@ -68,7 +68,9 @@ switch($action)
     case "search_quotes":
         if($authorId && $categoryId)
         {
-            $quotes = $quotes->get_quotes_by_both($authorId, $categoryId);
+            $quotes->authorId = $authorId;
+            $quotes->categoryId = $categoryId;
+            $quotes = $quotes->get_quotes_by_all();
             $authors = $authors->read();
             $categories = $categories->read();
             include('view/list_quotes.php');
@@ -76,7 +78,8 @@ switch($action)
         }
         else if($authorId)
         {
-            $quotes = $quotes->get_quotes_by_author($authorId);
+            $quotes->authorId = $authorId;
+            $quotes = $quotes->get_author_quotes($authorId);
             $authors = $authors->read();
             $categories = $categories->read();
             include('view/list_quotes.php');
@@ -84,7 +87,8 @@ switch($action)
         }
         else if($categoryId)
         {
-            $quotes = $quotes->get_quotes_by_category($categoryId);
+            $quotes->categoryId = $categoryId;
+            $quotes = $quotes->get_category_quotes($categoryId);
             $authors = $authors->read();
             $categories = $categories->read();
             include('view/list_quotes.php');

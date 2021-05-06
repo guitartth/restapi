@@ -10,14 +10,17 @@
 
 <!--Head Section-->
 <head>
-    <title>Craig's Quotes</title>
+    <title>Quotes</title>
     <link rel="stylesheet" type="text/css" href="./view/css/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap" rel="stylesheet">
 </head>
 
 <!--Body Section-->
 <body>
 <header>
-    <h1>Craig's Quotes</h1>
+    <img src="./view/img/quotelogo.JPG" alt="Quotes Graffiti Logo" id="quote_logo">
     <hr>
 </header>
+

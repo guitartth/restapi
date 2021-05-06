@@ -5,3 +5,10 @@
 // File: main.css
 
 */
+
+
+body {
+    background: url("../img/blackbrick.jpg");
+    background-color: black;
+    font-family: 'Finger Paint', cursive;
+}

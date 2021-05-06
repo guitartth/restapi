@@ -70,7 +70,7 @@ include('view/header.php'); ?>
         <input type="hidden" name="action" value="default">
         <button class="footer-button">Back Home</button>
     </form>
-    
+    <br>
     <form action="." method="post">
         <input type="hidden" name="action" value="edit_quotes">
         <button class="footer-button">Add Quote</button>
