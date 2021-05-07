@@ -1,5 +1,8 @@
 <?php
-
+// INF 653 Final Project Rest API
+// Author: Craig Freeburg
+// Date: 5/1/2021
+// File: authors/read_single.php
 
     // Headers
     header('Access-Control-Allow-Origin: *');

@@ -6,9 +6,118 @@
 */
 
 
-body {
-    background: url("../img/blackbrick.jpg");
-    background-color: black;
+html {
+    background: url("../img/blackbrick.jpg") repeat;
     font-family: 'Finger Paint', cursive;
-    font-size: 66px;
+    color: white;
+    font-size: 35px;
+}
+
+body {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer {
+    text-align: center;
+    font-size: 25px;
+}
+
+#quote_logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 25%;
+}
+
+hr {
+    width: 75%;
+}
+
+#filter_quote, #add_quote {
+    text-align: center;
+}
+
+#select_author, #select_category {
+    width: 150px;
+    height: 30px;
+    text-indent: 20%;
+}
+
+#select_category {
+    text-indent: 16%;
+}
+
+.search_button {
+    width: 80px;
+    height: 40px;
+}
+
+.search_button:active {
+    background-color: #757575;
+    width: 77px;
+    height: 37px;
+}
+
+.add_button {
+    width: 80px;
+    height: 40px;
+}
+
+.add_button:active {
+    background-color: #757575;
+    width: 77px;
+    height: 37px;
+}
+
+#add_quote_title {
+    margin-bottom: -50px;
+}
+
+#author_list {
+    text-align: right;
+    margin-right: 355px;
+}
+
+#quote_list {
+    text-align: center;
+    margin-left: 80px;
+}
+
+#footer_buttons {
+    display: flex;
+    text-align: center;
+    margin-left: 625px;
+}
+
+#footer_button {
+    text-align: center;
+}
+
+.footer_button {
+    width: 78px;
+    height: 38px;
+}
+
+.footer_button:active {
+    background-color: #757575;
+    width: 75px;
+    height: 35px;
+}
+
+.footer_button1, .footer_button2 {
+    width: 78px;
+    height: 38px;
+}
+
+.footer_button1:active, .footer_button2:active {
+    background-color: #757575;
+    width: 75px;
+    height: 35px;
+}
+
+#align_buttons {
+    margin-left: 100px;
 }

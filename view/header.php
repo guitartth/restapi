@@ -20,7 +20,7 @@
 <!--Body Section-->
 <body>
 <header>
-    <img src="./view/img/quotelogo.JPG" alt="Quotes Graffiti Logo" id="quote_logo">
+    <img src="./view/img/quotelogo.png" alt="Quotes Graffiti Logo" id="quote_logo">
     <hr>
 </header>
 
