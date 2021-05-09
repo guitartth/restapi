@@ -5,7 +5,7 @@
 // File: database.php
 
 // Heroku Database
-
+/*
 class Database
 {
     
@@ -33,9 +33,9 @@ class Database
         return $this->conn;
     }
 }
+*/
 
 
-/*
 // Local Database
 class Database
 {
@@ -63,21 +63,6 @@ class Database
 
         return $this->conn;
     }
-
-    
-    public static function getDB()
-    {
-        try {
-            self::$db = new PDO('mysql:host=localhost;dbname=restapi', 'root');
-        } catch (PDOException $e) {
-            $error_message = $e->getMessage();
-            include('./view/error.php');
-            exit();
-        }
-        return self::$db;
-    }
-    
-   
 }
-*/ 
+
 ?>

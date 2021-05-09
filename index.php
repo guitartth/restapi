@@ -111,6 +111,8 @@ switch($action)
         $quotes->categoryId = $categoryId;
         $quotes->quote = $quote_name;
         $quotes = $quotes->add_quote($quotes->quote, $quotes->authorId, $quotes->categoryId);
+        $categoryId = null;
+        $authorId = null;
         header("Location: .?action=default");
         break;
     default:
