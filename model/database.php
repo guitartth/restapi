@@ -52,7 +52,7 @@ class Database
         try
         {
             $this->conn = new PDO($dsn, $username, $password);
-            //$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch(PDOException $e)
         {
