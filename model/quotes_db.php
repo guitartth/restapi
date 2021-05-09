@@ -298,7 +298,7 @@ class Quotes
 
 
     // Adds quote to DB
-    public function add_quote($quote_name, $author_id, $category_id)
+    public function add_quote($quote_name, $authorId, $categoryId)
     {
         $query = 'INSERT INTO quotes
                     (quote, authorId, categoryId)
@@ -306,8 +306,8 @@ class Quotes
                     (:quote_name, :author_id, :category_id)';
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(':quote_name', $quote_name);
-        $stmt->bindValue(':author_id', $author_id);
-        $stmt->bindValue(':category_id', $category_id);
+        $stmt->bindValue(':author_id', $authorId);
+        $stmt->bindValue(':category_id', $categoryId);
         $stmt->execute();
         $stmt->closeCursor();
         return $stmt;
