@@ -32,6 +32,10 @@ class Database
 
         try
         {
+            echo $hostname;
+            echo $username;
+            echo $password;
+            echo $database;
             $this->conn = new PDO($dsn, $username, $password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
