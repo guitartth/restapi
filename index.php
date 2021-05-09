@@ -107,7 +107,10 @@ switch($action)
         include('view/edit_quotes.php');
         break;
     case "add_quote":
-        $quotes = $quotes->add_quote($quote_name, $authorId, $categoryId);
+        $quotes->authorId = $authorId;
+        $quotes->categoryId = $categoryId;
+        $quotes->quote = $quote_name;
+        $quotes = $quotes->create();
         header("Location: .?action=default");
         break;
     default:

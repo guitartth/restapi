@@ -8,17 +8,7 @@
 
 class Database
 {
-    //mysql://tml1m5szwewyaurs:zest7r9uexe2wgvt@eyw6324oty5fsovx.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/vcyg3k2dtgc3aho1
-    //private static $dsn = 'mysql:host=eyw6324oty5fsovx.cbetxkdyhwsb.us-east-1.rds.amazonaws.com;dbname=vcyg3k2dtgc3aho1';
-    //private static $username = 'tml1m5szwewyaurs';
-    //private static $password = 'zest7r9uexe2wgvt';
-    //private static $db;
-    /*
-    private function __construct()
-    {
-        //empty on purpose
-    }
-    */
+    
     public function connect()
     {
         $url = getenv('JAWSDB_URL');
