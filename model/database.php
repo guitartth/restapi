@@ -5,20 +5,21 @@
 // File: database.php
 
 // Heroku Database
-/*
+
 class Database
 {
     
-    private static $dsn = 'mysql:host=eyw6324oty5fsovx.cbetxkdyhwsb.us-east-1.rds.amazonaws.com;dbname=vcyg3k2dtgc3aho1';
-    private static $username = 'tml1m5szwewyaurs';
-    private static $password = 'zest7r9uexe2wgvt';
-    private static $db;
+    //private static $dsn = 'mysql:host=eyw6324oty5fsovx.cbetxkdyhwsb.us-east-1.rds.amazonaws.com;dbname=vcyg3k2dtgc3aho1';
+    //private static $username = 'tml1m5szwewyaurs';
+    //private static $password = 'zest7r9uexe2wgvt';
+    //private static $db;
 
     private function __construct()
     {
         //empty on purpose
     }
 
+    /*
     public static function getDB()
     {
         if (!isset(self::$db)) {
@@ -36,9 +37,34 @@ class Database
         }
         return self::$db;
     }
-}
-*/
+    */
+    public function connect()
+    {
+        $url = getenv('JAWSDB_URL');
+        $dbparts = parse_url($url);
 
+        $hostname = $dbparts['host'];
+        $username = $dbparts['user'];
+        $password = $dbparts['pass'];
+        $database = ltrim($dbparts['path'], '/');
+        $dsn = "mysql:host={$hostname};dbname={$database}";
+
+        try
+        {
+            $this->conn = new PDO($dsn, $username, $password);
+            //$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch(PDOException $e)
+        {
+            echo 'Connection Error: ' . $e->getMessage();
+        }
+
+        return $this->conn;
+    }
+}
+
+
+/*
 // Local Database
 class Database
 {
@@ -67,7 +93,7 @@ class Database
         return $this->conn;
     }
 
-    /*
+    
     public static function getDB()
     {
         try {
@@ -79,8 +105,8 @@ class Database
         }
         return self::$db;
     }
-    */
     
+   
 }
-
+*/ 
 ?>
