@@ -5,7 +5,7 @@
 // File: database.php
 
 // Heroku Database
-/*
+
 class Database
 {
     
@@ -33,9 +33,9 @@ class Database
         return $this->conn;
     }
 }
-*/
 
 
+/*
 // Local Database
 class Database
 {
@@ -64,5 +64,5 @@ class Database
         return $this->conn;
     }
 }
-
+*/
 ?>
