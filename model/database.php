@@ -13,12 +13,12 @@ class Database
     //private static $username = 'tml1m5szwewyaurs';
     //private static $password = 'zest7r9uexe2wgvt';
     //private static $db;
-
+    /*
     private function __construct()
     {
         //empty on purpose
     }
-
+    */
     public function connect()
     {
         $url = getenv('JAWSDB_URL');
