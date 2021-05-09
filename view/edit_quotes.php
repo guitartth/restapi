@@ -11,8 +11,8 @@ include('header.php'); ?>
 
 <section id="add_quote">
     <div id="add_quote_title"><h3>Add Quote</h3></div>
-    <form action="." method="post" id="add_form">
-        <input type="hidden" name="action" value="search_quotes">
+    <form action="." method="post" id="add_quote">
+        <input type="hidden" name="action" value="add_quote">
         <div id="add_quote_input">
         <select name="authorId" id="select_author">
             <option value="0">Select Author</option>
@@ -43,8 +43,7 @@ include('header.php'); ?>
         <br>
 
         <label>Quote</label><br>
-        <textarea type="text" name="quote_name" maxLength="200" rows="4" cols="50" required>
-        </textarea>
+        <textarea type="text" name="quote_name" maxLength="200" rows="4" cols="50" required></textarea>
 
         <div class="add_quote_submit_button">
             <button class="add_button">Add</button>

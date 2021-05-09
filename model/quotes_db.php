@@ -45,7 +45,7 @@ class Quotes
                         ON q.categoryId = c.categoryId
                         INNER JOIN authors a
                         ON q.authorId = a.authorId
-                        ORDER BY q.id';
+                        ORDER BY q.id DESC';
 
             // Prepare Query
             $stmt = $this->conn->prepare($query);
@@ -298,16 +298,19 @@ class Quotes
 
 
     // Adds quote to DB
-    public function add_quote($quote_name, $authorId, $categoryId)
+    public function add_quote()
     {
+        $quote_name = $this->quote;
+        $author_id = $this->authorId;
+        $category_id = $this->categoryId;
         $query = 'INSERT INTO quotes
                     (quote, authorId, categoryId)
                   VALUES
                     (:quote_name, :author_id, :category_id)';
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(':quote_name', $quote_name);
-        $stmt->bindValue(':author_id', $authorId);
-        $stmt->bindValue(':category_id', $categoryId);
+        $stmt->bindValue(':author_id', $author_id);
+        $stmt->bindValue(':category_id', $category_id);
         $stmt->execute();
         $stmt->closeCursor();
         return $stmt;
@@ -404,203 +407,4 @@ class Quotes
         return $stmt;
     }
 }
-
-
-
-
-
-
-
-
-
-
-// Original Working Code
-/*
-class Quotes 
-{
-
-    public function get_quotes_by_category($categoryId)
-    {
-        // Create Query
-        $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
-                      c.category, a.author
-                      FROM quotes q 
-                      INNER JOIN categories c
-                      ON q.categoryId = c.categoryId
-                      INNER JOIN authors a
-                      ON q.authorId = a.authorId
-                      WHERE categoryId = :categoryId';
-        
-        // Prepare Query
-        $stmt = $this->conn->prepare($query);
-
-        // Clean Data
-        $this->categoryId = htmlspecialchars(strip_tags($this->categoryId));
-
-        // Bind Data
-        $stmt->bindParam(':categoryId', $categoryId);
-
-        // Execute Query
-        $stmt->execute();
-
-        return $stmt;
-    }
-
-    public function get_quotes_by_author($authorId)
-    {
-        // Create Query
-        $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
-                      c.category, a.author
-                      FROM quotes q 
-                      INNER JOIN categories c
-                      ON q.categoryId = c.categoryId
-                      INNER JOIN authors a
-                      ON q.authorId = a.authorId
-                      WHERE authorId = :authorId';
-        
-        // Prepare Query
-        $stmt = $this->conn->prepare($query);
-
-        // Clean Data
-        $this->authorId = htmlspecialchars(strip_tags($this->authorId));
-
-        // Bind Data
-        $stmt->bindParam(':authorId', $authorId);
-
-        // Execute Query
-        $stmt->execute();
-
-        return $stmt;
-    }
-
-    public function get_quotes_by_all($authorId, $categoryId)
-    {
-        // Create Query
-        $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
-                      c.category, a.author
-                      FROM quotes q 
-                      INNER JOIN categories c
-                      ON q.categoryId = c.categoryId
-                      INNER JOIN authors a
-                      ON q.authorId = a.authorId
-                      WHERE authorId = :authorId
-                      AND categoryId = :categoryId';
-        
-        // Prepare Query
-        $stmt = $this->conn->prepare($query);
-
-        // Clean Data
-        $this->authorId = htmlspecialchars(strip_tags($this->authorId));
-        $this->categoryId = htmlspecialchars(strip_tags($this->categoryId));
-
-        // Bind Data
-        $stmt->bindParam(':authorId', $authorId);
-        $stmt->bindParam(':categoryId', $categoryId);
-
-        // Execute Query
-        $stmt->execute();
-
-        return $stmt;
-    }
-
-    public static function get_quotes()
-        {
-            $db = Database::getDB();
-            $query = 'SELECT q.quote, q.id, q.categoryId, q.authorId, 
-                      c.category, a.author
-                      FROM quotes q 
-                      INNER JOIN categories c
-                      ON q.categoryId = c.categoryId
-                      INNER JOIN authors a
-                      ON q.authorId = a.authorId
-                      ORDER BY q.id';
-            $statement = $db->prepare($query);
-            $statement->execute();
-            $quotes = $statement->fetchAll();
-            $statement->closeCursor();
-            return $quotes;
-        }
-
-        public static function get_quote_name($quote_id)
-        {
-            if(!$quote_id)
-            {
-                return "All Quotes";
-            } 
-            $db = Database::getDB();
-            $query = 'SELECT * FROM quotes
-                      WHERE id = :quote_id';
-            $statement = $db->prepare($query);
-            $statement->bindValue(':quote_id', $quote_id);
-            $statement->execute();
-            $quote = $statement->fetchAll();
-            $statement->closeCursor();
-            return $quote;
-        }
-
-        public static function add_quote($quote_name, $author_id, $category_id)
-        {
-            $db = Database::GetDB();
-            $query = 'INSERT INTO quotes
-                        (quote, authorId, categoryId)
-                      VALUES
-                        (:quote_name, :author_id, :category_id)';
-            $statement = $db->prepare($query);
-            $statement->bindValue(':quote_name', $quote_name);
-            $statement->bindValue(':author_id', $author_id);
-            $statement->bindValue(':category_id', $category_id);
-            $statement->execute();
-            $statement->closeCursor();
-        }
-
-        public static function get_quotes_by_category($category_id)
-        {
-            $db = Database::getDB();
-            $query = 'SELECT q.id, q.quote, c.category, a.author 
-                      FROM quotes q
-                      LEFT JOIN authors a ON q.authorId = a.authorId
-                      LEFT JOIN categories c ON q.categoryId = c.categoryId
-                      WHERE q.categoryId = :category_id';
-            $statement = $db->prepare($query);
-            $statement->bindValue(':category_id', $category_id);
-            $statement->execute();
-            $quotes = $statement->fetchAll();
-            $statement->closeCursor();
-            return $quotes;
-        }
-
-        public static function get_quotes_by_author($author_id)
-        {
-            $db = Database::getDB();
-            $query = 'SELECT q.id, q.quote, c.category, a.author 
-                      FROM quotes q
-                      LEFT JOIN authors a ON q.authorId = a.authorId
-                      LEFT JOIN categories c ON q.categoryId = c.categoryId
-                      WHERE q.authorId = :author_id';
-            $statement = $db->prepare($query);
-            $statement->bindValue(':author_id', $author_id);
-            $statement->execute();
-            $quotes = $statement->fetchAll();
-            $statement->closeCursor();
-            return $quotes;
-        }
-
-        public static function get_quotes_by_all($author_id, $category_id)
-        {
-            $db = Database::getDB();
-            $query = 'SELECT q.id, q.quote, c.category, a.author
-                      FROM quotes q
-                      LEFT JOIN authors a ON q.authorId = a.authorId
-                      LEFT JOIN categories c ON q.categoryId = c.categoryId
-                      WHERE q.authorId = :author_id && q.categoryId = :category_id';
-            $statement = $db->prepare($query);
-            $statement->bindValue(':author_id', $author_id);
-            $statement->bindValue(':category_id', $category_id);
-            $statement->execute();
-            $quotes = $statement->fetchAll();
-            $statement->closeCursor();
-            return $quotes;
-        }
-}
-*/
 ?>
