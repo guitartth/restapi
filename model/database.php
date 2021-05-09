@@ -8,7 +8,7 @@
 
 class Database
 {
-    
+    //mysql://tml1m5szwewyaurs:zest7r9uexe2wgvt@eyw6324oty5fsovx.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/vcyg3k2dtgc3aho1
     //private static $dsn = 'mysql:host=eyw6324oty5fsovx.cbetxkdyhwsb.us-east-1.rds.amazonaws.com;dbname=vcyg3k2dtgc3aho1';
     //private static $username = 'tml1m5szwewyaurs';
     //private static $password = 'zest7r9uexe2wgvt';
@@ -19,26 +19,6 @@ class Database
         //empty on purpose
     }
 
-    /*
-    public static function getDB()
-    {
-        if (!isset(self::$db)) {
-            try {
-                self::$db = new PDO(
-                    self::$dsn,
-                    self::$username,
-                    self::$password
-                );
-            } catch (PDOException $e) {
-                $error_message = $e->getMessage();
-                include('../errors/database_error.php');
-                exit();
-            }
-        }
-        return self::$db;
-    }
-    */
-
     public function connect()
     {
         $url = getenv('JAWSDB_URL');
@@ -47,7 +27,7 @@ class Database
         $hostname = $dbparts['host'];
         $username = $dbparts['user'];
         $password = $dbparts['pass'];
-        $database = ltrim($dbparts['path'], '/');
+        $database = ltrim($dbparts['path'],'/');
         $dsn = "mysql:host={$hostname};dbname={$database}";
 
         try
