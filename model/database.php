@@ -38,6 +38,7 @@ class Database
         return self::$db;
     }
     */
+
     public function connect()
     {
         $url = getenv('JAWSDB_URL');
@@ -56,7 +57,7 @@ class Database
         }
         catch(PDOException $e)
         {
-            echo 'Connection Error: ' . $e->getMessage();
+            echo 'Connection Failed: ' . $e->getMessage();
         }
 
         return $this->conn;
