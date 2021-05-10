@@ -25,9 +25,9 @@ class Categories
     public function read()
     {
         // Create Query
-        $query = 'SELECT categoryId, category
+        $query = 'SELECT id, category
                   FROM categories
-                  ORDER BY categoryId';
+                  ORDER BY id';
 
         // Prepare Query 
         $stmt = $this->conn->prepare($query);
@@ -42,9 +42,9 @@ class Categories
     public function get_single_category()
     {
         // Create Query
-        $query = 'SELECT categoryId, category
+        $query = 'SELECT id, category
                       FROM categories 
-                      WHERE categoryId = ?
+                      WHERE id = ?
                       LIMIT 0,1';
 
         // Prepare Query
@@ -59,7 +59,7 @@ class Categories
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Set Properties
-        $this->id = $row['categoryId'];
+        $this->id = $row['id'];
         $this->category = $row['category'];
     }
 
@@ -100,9 +100,9 @@ class Categories
         $query = 'UPDATE ' . $this->table . '
             SET 
                 category = :category,
-                categoryId = :categoryId
+                id = :categoryId
             WHERE
-                categoryId = :categoryId';
+                id = :categoryId';
 
         // Prepare Query
         $stmt = $this->conn->prepare($query);
@@ -130,7 +130,7 @@ class Categories
     public function delete()
     {
         $query = 'DELETE FROM ' . $this->table . '
-            WHERE categoryId = :categoryId';
+            WHERE id = :categoryId';
 
         // Prepare Query
         $stmt = $this->conn->prepare($query);
@@ -152,16 +152,6 @@ class Categories
         return false;
     }
 
-    public static function get_categories()
-        {
-            $db = Database::getDB();
-            $query = 'SELECT * FROM categories ORDER BY categoryId';
-            $statement = $db->prepare($query);
-            $statement->execute();
-            $categories = $statement->fetchAll();
-            $statement->closeCursor();
-            return $categories;
-        }
 }
 
 // Original Working Code

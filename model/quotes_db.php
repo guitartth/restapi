@@ -42,9 +42,9 @@ class Quotes
                         c.category, a.author
                         FROM quotes q 
                         INNER JOIN categories c
-                        ON q.categoryId = c.categoryId
+                        ON q.categoryId = c.id
                         INNER JOIN authors a
-                        ON q.authorId = a.authorId
+                        ON q.authorId = a.id
                         ORDER BY q.id DESC';
 
             // Prepare Query
@@ -64,9 +64,9 @@ class Quotes
             c.category, a.author
             FROM quotes q 
             INNER JOIN categories c
-            ON q.categoryId = c.categoryId
+            ON q.categoryId = c.id
             INNER JOIN authors a
-            ON q.authorId = a.authorId
+            ON q.authorId = a.id
             LIMIT 0,?';
 
         // Prepare Query
@@ -89,9 +89,9 @@ class Quotes
                       c.category, a.author
                       FROM quotes q 
                       INNER JOIN categories c
-                      ON q.categoryId = c.categoryId
+                      ON q.categoryId = c.id
                       INNER JOIN authors a
-                      ON q.authorId = a.authorId
+                      ON q.authorId = a.id
                       WHERE q.id = ?
                       LIMIT 0,1';
 
@@ -218,9 +218,9 @@ class Quotes
                       c.category, a.author
                       FROM quotes q 
                       INNER JOIN categories c
-                      ON q.categoryId = c.categoryId
+                      ON q.categoryId = c.id
                       INNER JOIN authors a
-                      ON q.authorId = a.authorId
+                      ON q.authorId = a.id
                       WHERE q.authorId = ?';
 
         // Prepare Query
@@ -243,9 +243,9 @@ class Quotes
                       c.category, a.author
                       FROM quotes q 
                       INNER JOIN categories c
-                      ON q.categoryId = c.categoryId
+                      ON q.categoryId = c.id
                       INNER JOIN authors a
-                      ON q.authorId = a.authorId
+                      ON q.authorId = a.id
                       WHERE q.categoryId = ?';
 
         // Prepare Query
@@ -268,9 +268,9 @@ class Quotes
                       c.category, a.author
                       FROM quotes q 
                       INNER JOIN categories c
-                      ON q.categoryId = c.categoryId
+                      ON q.categoryId = c.id
                       INNER JOIN authors a
-                      ON q.authorId = a.authorId
+                      ON q.authorId = a.id
                       WHERE q.categoryId = ?
                       AND q.authorId = ?';
 
@@ -324,10 +324,10 @@ class Quotes
                       c.category, a.author
                       FROM quotes q 
                       INNER JOIN categories c
-                      ON q.categoryId = c.categoryId
+                      ON q.categoryId = c.id
                       INNER JOIN authors a
-                      ON q.authorId = a.authorId
-                      WHERE authorId = :authorid';
+                      ON q.authorId = a.id
+                      WHERE id = :authorid';
         
         // Prepare Query
         $stmt = $this->conn->prepare($query);
@@ -356,10 +356,10 @@ class Quotes
                       c.category, a.author
                       FROM quotes q 
                       INNER JOIN categories c
-                      ON q.categoryId = c.categoryId
+                      ON q.categoryId = c.id
                       INNER JOIN authors a
-                      ON q.authorId = a.authorId
-                      WHERE categoryId = :categoryId';
+                      ON q.authorId = a.id
+                      WHERE id = :categoryId';
         
         // Prepare Query
         $stmt = $this->conn->prepare($query);
@@ -384,11 +384,11 @@ class Quotes
                       c.category, a.author
                       FROM quotes q 
                       INNER JOIN categories c
-                      ON q.categoryId = c.categoryId
+                      ON q.categoryId = c.id
                       INNER JOIN authors a
-                      ON q.authorId = a.authorId
-                      WHERE authorId = :authorId
-                      AND categoryId = :categoryId';
+                      ON q.authorId = a.id
+                      WHERE id = :authorId
+                      AND id = :categoryId';
         
         // Prepare Query
         $stmt = $this->conn->prepare($query);

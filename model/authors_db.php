@@ -24,9 +24,9 @@ class Authors
     public function read()
     {
         // Create Query
-        $query = 'SELECT authorId, author
+        $query = 'SELECT id, author
                   FROM authors
-                  ORDER BY authorId';
+                  ORDER BY id';
         
         // Prepare Query
         $stmt = $this->conn->prepare($query);
@@ -41,9 +41,9 @@ class Authors
     public function get_single_author()
     {
         // Create Query
-        $query = 'SELECT authorId, author
+        $query = 'SELECT id, author
                       FROM authors 
-                      WHERE authorId = ?
+                      WHERE id = ?
                       LIMIT 0,1';
 
         // Prepare Query
@@ -58,7 +58,7 @@ class Authors
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Set Properties
-        $this->id = $row['authorId'];
+        $this->id = $row['id'];
         $this->author = $row['author'];
     }
 
@@ -97,9 +97,9 @@ class Authors
         $query = 'UPDATE ' . $this->table . '
             SET 
                 author = :author,
-                authorId = :authorId
+                id = :authorId
             WHERE
-                authorId = :authorId';
+                id = :authorId';
 
         // Prepare Query
         $stmt = $this->conn->prepare($query);
@@ -127,7 +127,7 @@ class Authors
     public function delete()
     {
         $query = 'DELETE FROM ' . $this->table . '
-            WHERE authorId = :authorId';
+            WHERE id = :authorId';
 
         // Prepare Query
         $stmt = $this->conn->prepare($query);

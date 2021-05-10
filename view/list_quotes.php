@@ -16,10 +16,10 @@ include('view/header.php'); ?>
             <select name="authorId" id="select_author">
                 <option value="0">Select Author</option>
                 <?php foreach ($authors as $author) : ?>
-                    <?php if ($authorId == $author['authorId']) { ?>
-                        <option value="<?= $author['authorId'] ?>" selected>
+                    <?php if ($authorId == $author['id']) { ?>
+                        <option value="<?= $author['id'] ?>" selected>
                         <?php } else { ?>
-                        <option value="<?= $author['authorId'] ?>">
+                        <option value="<?= $author['id'] ?>">
                         <?php } ?>
                         <?= $author['author'] ?>
                         </option>
@@ -29,10 +29,10 @@ include('view/header.php'); ?>
             <select name="categoryId" id="select_category">
                 <option value="0">Select Category</option>
                 <?php foreach ($categories as $category) : ?>
-                    <?php if ($categoryId == $category['categoryId']) { ?>
-                        <option value="<?= $category['categoryId'] ?>" selected>
+                    <?php if ($categoryId == $category['id']) { ?>
+                        <option value="<?= $category['id'] ?>" selected>
                         <?php } else { ?>
-                        <option value="<?= $category['categoryId'] ?>">
+                        <option value="<?= $category['id'] ?>">
                         <?php } ?>
                         <?= $category['category'] ?>
                         </option>

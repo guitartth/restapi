@@ -5,7 +5,7 @@
 // File: database.php
 
 // Heroku Database
-
+/*
 class Database
 {
     
@@ -33,9 +33,9 @@ class Database
         return $this->conn;
     }
 }
+*/
 
 
-/*
 // Local Database
 class Database
 {
@@ -43,7 +43,6 @@ class Database
     private $host = 'localhost';
     private $db_name = 'restapi';
     private $username = 'root';
-    //private $password = '123456';
     private $conn;
 
     public function connect()
@@ -64,5 +63,5 @@ class Database
         return $this->conn;
     }
 }
-*/
+
 ?>
