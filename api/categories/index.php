@@ -33,7 +33,7 @@
         {
             extract($row);
             $cat_item = array(
-                'categoryId' => $categoryId,
+                'id' => $id,
                 'category' => $category
             );
 

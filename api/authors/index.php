@@ -33,7 +33,7 @@
         {
             extract($row);
             $author_item = array(
-                'authorId' => $authorId,
+                'id' => $id,
                 'author' => $author
             );
 

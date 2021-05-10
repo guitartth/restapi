@@ -25,7 +25,7 @@
     $data = json_decode(file_get_contents("php://input"));
 
     // Set Id to Update
-    $author->authorId = $data->authorId;
+    $author->authorId = $data->id;
 
     // Update Author
     if($author->delete())

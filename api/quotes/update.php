@@ -28,8 +28,8 @@
     $quote->id = $data->id;
 
     $quote->quote = $data->quote;
-    $quote->authorId = $data->authorId;
-    $quote->categoryId = $data->categoryId;
+    $quote->authorId = $data->id;
+    $quote->categoryId = $data->id;
 
     // Update Quote
     if($quote->update())

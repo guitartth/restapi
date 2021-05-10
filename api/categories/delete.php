@@ -25,7 +25,7 @@
     $data = json_decode(file_get_contents("php://input"));
 
     // Set Id to Update
-    $category->categoryId = $data->categoryId;
+    $category->categoryId = $data->id;
 
     // Update Category
     if($category->delete())
