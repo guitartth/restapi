@@ -45,7 +45,7 @@ class Quotes
                         ON q.categoryId = c.id
                         INNER JOIN authors a
                         ON q.authorId = a.id
-                        ORDER BY q.id DESC';
+                        ORDER BY q.id';
 
             // Prepare Query
             $stmt = $this->conn->prepare($query);
