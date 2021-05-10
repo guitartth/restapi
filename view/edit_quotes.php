@@ -11,16 +11,16 @@ include('header.php'); ?>
 
 <section id="add_quote">
     <div id="add_quote_title"><h3>Add Quote</h3></div>
-    <form action="." method="post" id="add_quote">
+    <form action="." method="get" id="add_quote">
         <input type="hidden" name="action" value="add_quote">
         <div id="add_quote_input">
         <select name="authorId" id="select_author">
             <option value="0">Select Author</option>
             <?php foreach ($authors as $author) : ?>
-            <?php if ($authorId == $author['authorId']) { ?>
-                <option value="<?= $author['authorId'] ?>" selected>
+            <?php if ($authorId == $author['id']) { ?>
+                <option value="<?= $author['id'] ?>" selected>
                     <?php } else { ?>
-                <option value="<?= $author['authorId'] ?>">
+                <option value="<?= $author['id'] ?>">
                     <?php } ?>
                     <?= $author['author'] ?>
                 </option> 
@@ -30,10 +30,10 @@ include('header.php'); ?>
         <select name="categoryId" id="select_category">
         <option value="0">Select Category</option>
         <?php foreach ($categories as $category) : ?>
-        <?php if ($categoryId == $category['categoryId']) { ?>
-            <option value="<?= $category['categoryId'] ?>" selected>
+        <?php if ($categoryId == $category['id']) { ?>
+            <option value="<?= $category['id'] ?>" selected>
                 <?php } else { ?>
-            <option value="<?= $category['categoryId'] ?>">
+            <option value="<?= $category['id'] ?>">
                 <?php } ?>
                 <?= $category['category'] ?>
             </option> 
